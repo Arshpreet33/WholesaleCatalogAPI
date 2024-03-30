@@ -2,7 +2,9 @@
 using Persistence;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
-using Application.Products;
+using Application.Clients;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 namespace API.Extensions
 {
@@ -33,6 +35,9 @@ namespace API.Extensions
             });
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(List.Handler).Assembly));
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining<Create>();
 
             services.AddHttpContextAccessor();
 

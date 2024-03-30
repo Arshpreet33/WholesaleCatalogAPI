@@ -69,6 +69,55 @@ namespace Persistence
                 await context.Products.AddRangeAsync(products);
                 await context.SaveChangesAsync();
             }
+
+            if (!context.Clients.Any())
+            {
+                var clients = new List<Client>
+                {
+                    new Client
+                    {
+                        Code = "11",
+                        Name = "Client ABC",
+                        Email = "clientabc@gmail.com",
+                        PhoneNumber = "123456789",
+                        Address = "1234 100 Ave SW",
+                        City = "Montreal",
+                        Province = "QC",
+                        PostalCode = "H4G5KT",
+                        IsActive = true,
+                        IsDeleted = false
+                    },
+                    new Client
+                    {
+                        Code = "22",
+                        Name = "Client XYZ",
+                        Email = "clientxyz@gmail.com",
+                        PhoneNumber = "123456789",
+                        Address = "526 120 Ave SW",
+                        City = "London",
+                        Province = "ON",
+                        PostalCode = "K4G5SZ",
+                        IsActive = true,
+                        IsDeleted = false
+                    },
+                    new Client
+                    {
+                        Code = "33",
+                        Name = "Client 123",
+                        Email = "client123@gmail.com",
+                        PhoneNumber = "123456789",
+                        Address = "778 98 Ave SW",
+                        City = "Vancouver",
+                        Province = "BC",
+                        PostalCode = "T4A9UD",
+                        IsActive = true,
+                        IsDeleted = false
+                    }
+                };
+
+                await context.Clients.AddRangeAsync(clients);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

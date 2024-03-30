@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Domain;
 using Application.Products;
-using Microsoft.AspNetCore.Authorization;
-using Application.Core;
 
 namespace API.Controllers
 {
@@ -10,13 +7,13 @@ namespace API.Controllers
     {
 
         [HttpGet]   //api/products
-        public async Task<IActionResult> GetActivities([FromQuery] ProductParams param)
+        public async Task<IActionResult> GetProducts([FromQuery] ProductParams param)
         {
             return HandlePagedResult(await Mediator.Send(new List.Query { Params = param }));
         }
 
         [HttpGet("{id}")]   //api/products/abcdefghijkl
-        public async Task<IActionResult> GetActivityById(Guid id)
+        public async Task<IActionResult> GetProductById(Guid id)
         {
             return HandleResult(await Mediator.Send(new Details.Query() { Id = id }));
         }
