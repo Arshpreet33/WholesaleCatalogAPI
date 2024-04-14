@@ -6,7 +6,7 @@ using Application.Core;
 
 namespace Application.Clients
 {
-    public class Delete
+    public class ToggleActive
     {
         public class Command : IRequest<Result<Unit>>
         {
@@ -28,11 +28,11 @@ namespace Application.Clients
 
                 if (client == null) return null;
 
-                client.IsDeleted = true;
+                client.IsActive = !client.IsActive;
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to delete Client");
+                if (!result) return Result<Unit>.Failure("Failed to Activate/deactivate Client");
 
                 return Result<Unit>.Success(Unit.Value);
             }

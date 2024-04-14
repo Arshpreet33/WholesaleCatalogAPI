@@ -39,7 +39,13 @@ namespace Application.Clients
 
                 if (client == null) return null;
 
+                bool isActive = client.IsActive;
+                bool isDeleted = client.IsDeleted;
+
                 _mapper.Map(request.Client, client);
+
+                client.IsActive = isActive;
+                client.IsDeleted = isDeleted;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

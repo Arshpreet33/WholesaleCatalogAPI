@@ -36,5 +36,11 @@ namespace API.Controllers
         {
             return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
+
+        [HttpPut("{id}/toggle")]   //api/clients/abcdefghijkl/toggle
+        public async Task<IActionResult> ToggleActiveStatus(Guid id)
+        {
+            return HandleResult(await Mediator.Send(new ToggleActive.Command { Id = id }));
+        }
     }
 }

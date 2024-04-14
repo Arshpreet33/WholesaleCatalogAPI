@@ -14,6 +14,5 @@
         public string Province { get; set; }
         public string PostalCode { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }
