@@ -1,4 +1,5 @@
 ﻿using Application.Clients;
+using Application.Manufacturers;
 using Application.Products;
 using AutoMapper;
 using Domain;
@@ -14,6 +15,9 @@ namespace Application.Core
 
             CreateMap<Client, Client>();
             CreateMap<Client, ClientDto>();
+
+            CreateMap<Manufacturer, Manufacturer>();
+            CreateMap<Manufacturer, ManufacturerDto>();
         }
     }
 }
