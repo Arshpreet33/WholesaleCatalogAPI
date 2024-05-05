@@ -38,7 +38,7 @@ namespace Application.Manufacturers
 
                 return Result<PagedList<ManufacturerDto>>.Success(
                     await PagedList<ManufacturerDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
-                                                    );
+                );
             }
         }
     }

@@ -5,16 +5,16 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Manufacturers
+namespace Application.Categories
 {
     public class Details
     {
-        public class Query : IRequest<Result<ManufacturerDto>>
+        public class Query : IRequest<Result<CategoryDto>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<ManufacturerDto>>
+        public class Handler : IRequestHandler<Query, Result<CategoryDto>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -25,13 +25,13 @@ namespace Application.Manufacturers
                 _context = context;
 
             }
-            public async Task<Result<ManufacturerDto>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<CategoryDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var manufacturer = await _context.Manufacturers.Where(m => !m.IsDeleted)   // do not return the deleted Manufacturers
-                  .ProjectTo<ManufacturerDto>(_mapper.ConfigurationProvider)
+                var category = await _context.Categories.Where(m => !m.IsDeleted)   // do not return the deleted Categories
+                  .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider)
                   .FirstOrDefaultAsync(x => x.Id == request.Id);
 
-                return Result<ManufacturerDto>.Success(manufacturer);
+                return Result<CategoryDto>.Success(category);
             }
         }
     }

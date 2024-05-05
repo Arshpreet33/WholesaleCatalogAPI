@@ -1,4 +1,5 @@
-﻿using Application.Clients;
+﻿using Application.Categories;
+using Application.Clients;
 using Application.Manufacturers;
 using Application.Products;
 using AutoMapper;
@@ -18,6 +19,9 @@ namespace Application.Core
 
             CreateMap<Manufacturer, Manufacturer>();
             CreateMap<Manufacturer, ManufacturerDto>();
+
+            CreateMap<Category, Category>();
+            CreateMap<Category, CategoryDto>();
         }
     }
 }

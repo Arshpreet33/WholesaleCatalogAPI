@@ -4,9 +4,9 @@ using Domain;
 using MediatR;
 using Application.Core;
 
-namespace Application.Manufacturers
+namespace Application.Categories
 {
-    public class Delete
+    public class ToggleActive
     {
         public class Command : IRequest<Result<Unit>>
         {
@@ -24,22 +24,15 @@ namespace Application.Manufacturers
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var manufacturer = await _context.Manufacturers.FindAsync(request.Id);
+                var category = await _context.Categories.FindAsync(request.Id);
 
-                if (manufacturer == null) return null;
+                if (category == null) return null;
 
-                manufacturer.IsDeleted = true;
-
-                var categories = await _context.Categories.Where(c => c.ManufacturerId == manufacturer.Id).ToListAsync();
-
-                foreach (var category in categories)
-                {
-                    category.IsDeleted = true;
-                }
+                category.IsActive = !category.IsActive;
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to delete Manufacturer");
+                if (!result) return Result<Unit>.Failure("Failed to Activate/deactivate Category");
 
                 return Result<Unit>.Success(Unit.Value);
             }

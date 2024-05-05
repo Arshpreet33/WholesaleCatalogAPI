@@ -159,7 +159,26 @@ namespace Persistence
                         Description = "Perugina is an Italian chocolate confectionery company based in Perugia, Italy that was founded in 1907. The company produces a wide array of chocolate products, including chocolate bars, hard candy, and chocolate-dragees.",
                         ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
                         IsActive = true,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        Categories = new List<Category>
+                        {
+                            new Category
+                            {
+                                Name = "Chocolate",
+                                Description = "Chocolate is a food product made from roasted and ground cacao seeds that is typically sweetened. It is commonly used as a flavoring ingredient in many foods, such as cakes, cookies, and ice cream.",
+                                ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
+                                IsActive = true,
+                                IsDeleted = false
+                            },
+                            new Category
+                            {
+                                Name = "Candy",
+                                Description = "Candy is a confection made from sugar, flavorings, and other ingredients. It is typically sweet and comes in a variety of forms, including hard candies, gummies, and chocolates.",
+                                ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
+                                IsActive = true,
+                                IsDeleted = false
+                            }
+                        }
                     },
                     new Manufacturer
                     {
@@ -167,7 +186,26 @@ namespace Persistence
                         Description = "Balocco is an Italian company that produces a wide range of baked goods, including cookies, cakes, and pastries. The company was founded in 1927 and is known for its high-quality products and traditional recipes.",
                         ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
                         IsActive = true,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        Categories = new List<Category>
+                        {
+                            new Category
+                            {
+                                Name = "Cookies",
+                                Description = "Cookies are a type of baked good that is typically sweet and made from flour, sugar, and butter. They come in a variety of flavors and textures, including chocolate chip, oatmeal, and sugar cookies.",
+                                ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
+                                IsActive = true,
+                                IsDeleted = false
+                            },
+                            new Category
+                            {
+                                Name = "Cakes",
+                                Description = "Cakes are a type of baked good that is typically sweet and made from flour, sugar, and eggs. They come in a variety of flavors and styles, including chocolate, vanilla, and red velvet cakes.",
+                                ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
+                                IsActive = true,
+                                IsDeleted = false
+                            }
+                        }
                     },
                     new Manufacturer
                     {
@@ -175,7 +213,26 @@ namespace Persistence
                         Description = "Ferrero is an Italian manufacturer of chocolate and other confectionery products. The company was founded in 1946 and is known for its popular brands, including Nutella, Ferrero Rocher, and Kinder Chocolate.",
                         ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
                         IsActive = true,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        Categories = new List<Category>
+                        {
+                            new Category
+                            {
+                                Name = "Nutella",
+                                Description = "Nutella is a popular chocolate-hazelnut spread that is made by Ferrero. It is commonly used as a topping for toast, pancakes, and other baked goods.",
+                                ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
+                                IsActive = true,
+                                IsDeleted = false
+                            },
+                            new Category
+                            {
+                                Name = "Ferrero Rocher",
+                                Description = "Ferrero Rocher is a popular chocolate confection that is made by Ferrero. It consists of a whole hazelnut surrounded by a thin wafer shell filled with hazelnut cream and covered in milk chocolate and chopped hazelnuts.",
+                                ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
+                                IsActive = true,
+                                IsDeleted = false
+                            }
+                        }
                     }
                 };
 

@@ -27,7 +27,7 @@ namespace Application.Clients
             }
             public async Task<Result<ClientDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var client = await _context.Clients
+                var client = await _context.Clients.Where(m => !m.IsDeleted)   // do not return the deleted Clients
                   .ProjectTo<ClientDto>(_mapper.ConfigurationProvider)
                   .FirstOrDefaultAsync(x => x.Id == request.Id);
 
