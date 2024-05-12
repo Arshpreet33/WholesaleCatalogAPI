@@ -41,11 +41,13 @@ namespace Application.Categories
 
                 bool isActive = category.IsActive;
                 bool isDeleted = category.IsDeleted;
+                var manufacturerId = category.ManufacturerId;
 
                 _mapper.Map(request.Category, category);
 
                 category.IsActive = isActive;
                 category.IsDeleted = isDeleted;
+                category.ManufacturerId = manufacturerId;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

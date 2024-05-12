@@ -4,6 +4,7 @@ using Persistence;
 using Application.Core;
 using Domain;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Categories
 {
@@ -12,6 +13,7 @@ namespace Application.Categories
         public class Command : IRequest<Result<Unit>>
         {
             public Category Category { get; set; }
+            public Guid ManufacturerId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -19,6 +21,7 @@ namespace Application.Categories
             public CommandValidator()
             {
                 RuleFor(x => x.Category).SetValidator(new CategoryValidator());
+                RuleFor(x => x.ManufacturerId).NotEmpty();
             }
         }
 
@@ -35,7 +38,17 @@ namespace Application.Categories
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                var manufacturer = await _context.Manufacturers
+                    .Where(m => m.Id == request.ManufacturerId && !m.IsDeleted)
+                    .FirstOrDefaultAsync();
+
+                if (manufacturer == null)
+                {
+                    return Result<Unit>.Failure("Manufacturer not found or has been deleted");
+                }
+
                 var category = _mapper.Map<Category>(request.Category);
+                category.ManufacturerId = request.ManufacturerId;
                 category.IsDeleted = false;
                 category.IsActive = true;
 

@@ -3,6 +3,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Persistence;
+using System.Linq;
 
 namespace Application.Categories
 {
@@ -30,6 +31,11 @@ namespace Application.Categories
                   .AsQueryable();
 
                 query = query.Where(q => q.IsActive == request.Params.IsActive); // filter by active Categories
+
+                if (request.Params.ManufacturerId != null) // filter by Manufacturer using ManufacturerId
+                {
+                    query = query.Where(q => q.Manufacturer.Id == request.Params.ManufacturerId);
+                }
 
                 if (!string.IsNullOrEmpty(request.Params.Name)) // filter by name using search string 'Name
                 {
