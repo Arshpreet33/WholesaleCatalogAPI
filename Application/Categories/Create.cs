@@ -13,7 +13,6 @@ namespace Application.Categories
         public class Command : IRequest<Result<Unit>>
         {
             public Category Category { get; set; }
-            public Guid ManufacturerId { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -21,7 +20,6 @@ namespace Application.Categories
             public CommandValidator()
             {
                 RuleFor(x => x.Category).SetValidator(new CategoryValidator());
-                RuleFor(x => x.ManufacturerId).NotEmpty();
             }
         }
 
@@ -39,7 +37,7 @@ namespace Application.Categories
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var manufacturer = await _context.Manufacturers
-                    .Where(m => m.Id == request.ManufacturerId && !m.IsDeleted)
+                    .Where(m => m.Id == request.Category.ManufacturerId && !m.IsDeleted)
                     .FirstOrDefaultAsync();
 
                 if (manufacturer == null)
@@ -48,7 +46,6 @@ namespace Application.Categories
                 }
 
                 var category = _mapper.Map<Category>(request.Category);
-                category.ManufacturerId = request.ManufacturerId;
                 category.IsDeleted = false;
                 category.IsActive = true;
 
