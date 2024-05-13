@@ -42,12 +42,15 @@ namespace Application.Categories
                 bool isActive = category.IsActive;
                 bool isDeleted = category.IsDeleted;
                 var manufacturerId = category.ManufacturerId;
+                var createdAt = category.CreatedAt;
 
                 _mapper.Map(request.Category, category);
 
                 category.IsActive = isActive;
                 category.IsDeleted = isDeleted;
                 category.ManufacturerId = manufacturerId;
+                category.CreatedAt = createdAt;
+                category.UpdatedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

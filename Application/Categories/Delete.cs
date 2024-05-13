@@ -29,6 +29,7 @@ namespace Application.Categories
                 if (category == null) return null;
 
                 category.IsDeleted = true;
+                category.DeletedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

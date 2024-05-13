@@ -29,6 +29,7 @@ namespace Application.Clients
                 if (client == null) return null;
 
                 client.IsDeleted = true;
+                client.DeletedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

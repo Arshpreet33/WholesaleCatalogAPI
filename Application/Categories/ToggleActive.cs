@@ -29,6 +29,7 @@ namespace Application.Categories
                 if (category == null) return null;
 
                 category.IsActive = !category.IsActive;
+                category.UpdatedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

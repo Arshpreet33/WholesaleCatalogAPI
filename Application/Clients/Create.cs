@@ -38,6 +38,8 @@ namespace Application.Clients
                 var client = _mapper.Map<Client>(request.Client);
                 client.IsDeleted = false;
                 client.IsActive = true;
+                client.CreatedAt = DateTime.UtcNow;
+                client.UpdatedAt = DateTime.UtcNow;
 
                 _context.Clients.Add(client);
 

@@ -41,11 +41,14 @@ namespace Application.Clients
 
                 bool isActive = client.IsActive;
                 bool isDeleted = client.IsDeleted;
+                var cretedAt = client.CreatedAt;
 
                 _mapper.Map(request.Client, client);
 
                 client.IsActive = isActive;
                 client.IsDeleted = isDeleted;
+                client.CreatedAt = cretedAt;
+                client.UpdatedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

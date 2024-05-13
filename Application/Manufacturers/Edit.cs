@@ -41,11 +41,14 @@ namespace Application.Manufacturers
 
                 bool isActive = manufacturer.IsActive;
                 bool isDeleted = manufacturer.IsDeleted;
+                var createdAt = manufacturer.CreatedAt;
 
                 _mapper.Map(request.Manufacturer, manufacturer);
 
                 manufacturer.IsActive = isActive;
                 manufacturer.IsDeleted = isDeleted;
+                manufacturer.CreatedAt = createdAt;
+                manufacturer.UpdatedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

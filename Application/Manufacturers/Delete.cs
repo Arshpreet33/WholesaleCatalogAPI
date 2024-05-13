@@ -29,12 +29,14 @@ namespace Application.Manufacturers
                 if (manufacturer == null) return null;
 
                 manufacturer.IsDeleted = true;
+                manufacturer.DeletedAt = DateTime.UtcNow;
 
                 var categories = await _context.Categories.Where(c => c.ManufacturerId == manufacturer.Id).ToListAsync();
 
                 foreach (var category in categories)
                 {
                     category.IsDeleted = true;
+                    category.DeletedAt = DateTime.UtcNow;
                 }
 
                 var result = await _context.SaveChangesAsync() > 0;

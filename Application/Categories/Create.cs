@@ -48,6 +48,8 @@ namespace Application.Categories
                 var category = _mapper.Map<Category>(request.Category);
                 category.IsDeleted = false;
                 category.IsActive = true;
+                category.CreatedAt = DateTime.UtcNow;
+                category.UpdatedAt = DateTime.UtcNow;
 
                 _context.Categories.Add(category);
 

@@ -29,6 +29,7 @@ namespace Application.Clients
                 if (client == null) return null;
 
                 client.IsActive = !client.IsActive;
+                client.UpdatedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 

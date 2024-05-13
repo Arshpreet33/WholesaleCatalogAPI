@@ -38,6 +38,8 @@ namespace Application.Manufacturers
                 var manufacturer = _mapper.Map<Manufacturer>(request.Manufacturer);
                 manufacturer.IsDeleted = false;
                 manufacturer.IsActive = true;
+                manufacturer.CreatedAt = DateTime.UtcNow;
+                manufacturer.UpdatedAt = DateTime.UtcNow;
 
                 _context.Manufacturers.Add(manufacturer);
 
