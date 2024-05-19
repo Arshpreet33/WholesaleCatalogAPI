@@ -4,7 +4,8 @@ namespace Application.Products
 {
     public class ProductParams : Params
     {
-        public string TitleSearch { get; set; }
-        public string Category { get; set; }
+        public string Name { get; set; }
+        public Guid? CategoryId { get; set; }
+        public bool IsActive { get; set; }
     }
 }

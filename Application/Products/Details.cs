@@ -27,7 +27,7 @@ namespace Application.Products
             }
             public async Task<Result<ProductDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var product = await _context.Products
+                var product = await _context.Products.Where(m => !m.IsDeleted)   // do not return the deleted Categories
                   .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
                   .FirstOrDefaultAsync(x => x.Id == request.Id);
 

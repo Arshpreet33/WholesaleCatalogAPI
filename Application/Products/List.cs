@@ -3,6 +3,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Persistence;
+using System.Linq;
 
 namespace Application.Products
 {
@@ -25,15 +26,27 @@ namespace Application.Products
             }
             public async Task<Result<PagedList<ProductDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var query = _context.Products
+                var query = _context.Products.Where(p => !p.IsDeleted)   // do not return the deleted Products
                   .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
                   .AsQueryable();
 
-                if(!string.IsNullOrEmpty(request.Params.TitleSearch))
-                    query = query.Where(q => q.Title.Contains(request.Params.TitleSearch));
+                query = query.Where(q => q.IsActive == request.Params.IsActive); // filter by active Products
+
+                if (request.Params.CategoryId != null) // filter by Category using CategoryId
+                {
+                    query = query.Where(q => q.Category.Id == request.Params.CategoryId);
+                }
+
+                if (!string.IsNullOrEmpty(request.Params.Name)) // filter by name using search string 'Name
+                {
+                    query = query.Where(
+                        q => q.Name.Contains(request.Params.Name) ||
+                            q.Code.Contains(request.Params.Name)
+                    );
+                }
 
                 return Result<PagedList<ProductDto>>.Success(
-                  await PagedList<ProductDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
+                    await PagedList<ProductDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
                 );
             }
         }

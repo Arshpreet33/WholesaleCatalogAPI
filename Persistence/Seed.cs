@@ -7,7 +7,7 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
-            if(!userManager.Users.Any())
+            if (!userManager.Users.Any())
             {
                 var users = new List<AppUser>
                 {
@@ -36,70 +36,6 @@ namespace Persistence
                 }
             }
 
-            if (!context.Products.Any())
-            {
-                var products = new List<Product>
-                {
-                    new Product
-                    {
-                        Title = "BACI TUBES Milk Chocolate",
-                        Code = "839456005525",
-                        UnitPrice = 1.95,
-                        UnitWeight = 37.5,
-                        CaseQty = 14,
-                        Image = ""
-                    },
-                    new Product
-                    {
-                        Title = "BACI TUBES Dark Chocolate",
-                        Code = "839456005501",
-                        UnitPrice = 1.95,
-                        UnitWeight = 37.5,
-                        CaseQty = 14,
-                        Image = ""
-                    },
-                    new Product
-                    {
-                        Title = "BACI BULK",
-                        Code = "000",
-                        UnitPrice = 25,
-                        UnitWeight = 750,
-                        CaseQty = 4,
-                        Image = ""
-                    },
-                    new Product
-                    {
-                        Title = "PERUGINA BACI ADVENT CALENDAR",
-                        Code = "000",
-                        UnitPrice = 15.65,
-                        UnitWeight = 278,
-                        CaseQty = 10,
-                        Image = ""
-                    },
-                    new Product
-                    {
-                        Title = "PERUGINA DOLCE SCOPERTE",
-                        Code = "000",
-                        UnitPrice = 11.00,
-                        UnitWeight = 200,
-                        CaseQty = 8,
-                        Image = ""
-                    },
-                    new Product
-                    {
-                        Title = "BALOCCO NOVELLINI",
-                        Code = "8001100012384",
-                        UnitPrice = 2.50,
-                        UnitWeight = 350,
-                        CaseQty = 10,
-                        Image = ""
-                    },
-                };
-
-                await context.Products.AddRangeAsync(products);
-                await context.SaveChangesAsync();
-            }
-
             if (!context.Clients.Any())
             {
                 var clients = new List<Client>
@@ -115,7 +51,9 @@ namespace Persistence
                         Province = "QC",
                         PostalCode = "H4G5KT",
                         IsActive = true,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
                     },
                     new Client
                     {
@@ -128,7 +66,9 @@ namespace Persistence
                         Province = "ON",
                         PostalCode = "K4G5SZ",
                         IsActive = true,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
                     },
                     new Client
                     {
@@ -141,7 +81,9 @@ namespace Persistence
                         Province = "BC",
                         PostalCode = "T4A9UD",
                         IsActive = true,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
                     }
                 };
 
@@ -149,7 +91,7 @@ namespace Persistence
                 await context.SaveChangesAsync();
             }
 
-            if(!context.Manufacturers.Any())
+            if (!context.Manufacturers.Any())
             {
                 var manufacturers = new List<Manufacturer>
                 {
@@ -160,6 +102,8 @@ namespace Persistence
                         ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
                         IsActive = true,
                         IsDeleted = false,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
                         Categories = new List<Category>
                         {
                             new Category
@@ -168,7 +112,72 @@ namespace Persistence
                                 Description = "Chocolate is a food product made from roasted and ground cacao seeds that is typically sweetened. It is commonly used as a flavoring ingredient in many foods, such as cakes, cookies, and ice cream.",
                                 ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
                                 IsActive = true,
-                                IsDeleted = false
+                                IsDeleted = false,
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now,
+                                Products = new List<Product>
+                                {
+                                    new Product
+                                    {
+                                        Name = "PERUGINA BACI TUBES Milk Chocolate",
+                                        Code = "839456005525",
+                                        UnitPrice = 1.95m,
+                                        UnitWeight = 37.5,
+                                        ItemsInCase = 14,
+                                        CasePrice = 27.30m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "PERUGINA BACI TUBES Dark Chocolate",
+                                        Code = "839456005501",
+                                        UnitPrice = 1.95m,
+                                        UnitWeight = 37.5,
+                                        ItemsInCase = 14,
+                                        CasePrice = 27.30m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "PERUGINA BACI BULK",
+                                        Code = "839456005551",
+                                        UnitPrice = 25.00m,
+                                        UnitWeight = 750,
+                                        ItemsInCase = 4,
+                                        CasePrice = 100.00m,
+                                        ItemsInStock = 50,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "PERUGINA BACI ADVENT CALENDAR",
+                                        Code = "839456005581",
+                                        UnitPrice = 15.65m,
+                                        UnitWeight = 278,
+                                        ItemsInCase = 10,
+                                        CasePrice = 156.50m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.perugina.com/wp-content/uploads"
+                                    }
+                                }
                             },
                             new Category
                             {
@@ -176,7 +185,28 @@ namespace Persistence
                                 Description = "Candy is a confection made from sugar, flavorings, and other ingredients. It is typically sweet and comes in a variety of forms, including hard candies, gummies, and chocolates.",
                                 ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
                                 IsActive = true,
-                                IsDeleted = false
+                                IsDeleted = false,
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now,
+                                Products = new List<Product>
+                                {
+                                    new Product
+                                    {
+                                        Name = "DOLCE SCOPERTE Candy",
+                                        Code = "839456005591",
+                                        UnitPrice = 11.00m,
+                                        UnitWeight = 200,
+                                        ItemsInCase = 8,
+                                        CasePrice = 88.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.perugina.com/wp-content/uploads/2019/11/Perugina-Logo.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    }
+                                }
                             }
                         }
                     },
@@ -187,6 +217,8 @@ namespace Persistence
                         ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
                         IsActive = true,
                         IsDeleted = false,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
                         Categories = new List<Category>
                         {
                             new Category
@@ -195,7 +227,60 @@ namespace Persistence
                                 Description = "Cookies are a type of baked good that is typically sweet and made from flour, sugar, and butter. They come in a variety of flavors and textures, including chocolate chip, oatmeal, and sugar cookies.",
                                 ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
                                 IsActive = true,
-                                IsDeleted = false
+                                IsDeleted = false,
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now,
+                                Products = new List<Product>
+                                {
+                                    new Product
+                                    {
+                                        Name = "BALOCCO NOVELLINI Milk Cookies",
+                                        Code = "8001100012384",
+                                        UnitPrice = 2.50m,
+                                        UnitWeight = 350,
+                                        ItemsInCase = 10,
+                                        CasePrice = 25.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "BALOCCO NOVELLINI Chocolate Cookies",
+                                        Code = "8001100012386",
+                                        UnitPrice = 2.50m,
+                                        UnitWeight = 350,
+                                        ItemsInCase = 10,
+                                        CasePrice = 25.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "BALOCCO NOVELLINI Vanilla Cookies",
+                                        Code = "8001100012387",
+                                        UnitPrice = 2.50m,
+                                        UnitWeight = 350,
+                                        ItemsInCase = 10,
+                                        CasePrice = 25.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    }
+                                }
                             },
                             new Category
                             {
@@ -203,7 +288,28 @@ namespace Persistence
                                 Description = "Cakes are a type of baked good that is typically sweet and made from flour, sugar, and eggs. They come in a variety of flavors and styles, including chocolate, vanilla, and red velvet cakes.",
                                 ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
                                 IsActive = true,
-                                IsDeleted = false
+                                IsDeleted = false,
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now,
+                                Products = new List<Product>
+                                {
+                                    new Product
+                                    {
+                                        Name = "BALOCCO PANETTONE Cake",
+                                        Code = "8001100012385",
+                                        UnitPrice = 10.00m,
+                                        UnitWeight = 750,
+                                        ItemsInCase = 4,
+                                        CasePrice = 40.00m,
+                                        ItemsInStock = 50,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.balocco.it/wp-content/uploads/2019/11/logo-balocco.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    }
+                                }
                             }
                         }
                     },
@@ -214,6 +320,8 @@ namespace Persistence
                         ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
                         IsActive = true,
                         IsDeleted = false,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
                         Categories = new List<Category>
                         {
                             new Category
@@ -222,7 +330,44 @@ namespace Persistence
                                 Description = "Nutella is a popular chocolate-hazelnut spread that is made by Ferrero. It is commonly used as a topping for toast, pancakes, and other baked goods.",
                                 ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
                                 IsActive = true,
-                                IsDeleted = false
+                                IsDeleted = false,
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now,
+                                Products = new List<Product>
+                                {
+                                    new Product
+                                    {
+                                        Name = "FERRERO NUTELLA Spread",
+                                        Code = "8001100012785",
+                                        UnitPrice = 5.00m,
+                                        UnitWeight = 750,
+                                        ItemsInCase = 6,
+                                        CasePrice = 30.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "FERRERO NUTELLA B-READY",
+                                        Code = "8001100012795",
+                                        UnitPrice = 2.50m,
+                                        UnitWeight = 132,
+                                        ItemsInCase = 12,
+                                        CasePrice = 30.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    }
+                                }
                             },
                             new Category
                             {
@@ -230,7 +375,60 @@ namespace Persistence
                                 Description = "Ferrero Rocher is a popular chocolate confection that is made by Ferrero. It consists of a whole hazelnut surrounded by a thin wafer shell filled with hazelnut cream and covered in milk chocolate and chopped hazelnuts.",
                                 ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
                                 IsActive = true,
-                                IsDeleted = false
+                                IsDeleted = false,
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now,
+                                Products = new List<Product>
+                                {
+                                    new Product
+                                    {
+                                        Name = "FERRERO ROCHER Chocolate",
+                                        Code = "8001100012786",
+                                        UnitPrice = 1.00m,
+                                        UnitWeight = 12,
+                                        ItemsInCase = 24,
+                                        CasePrice = 24.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "FERRERO ROCHER Gift Box",
+                                        Code = "8001100012796",
+                                        UnitPrice = 10.00m,
+                                        UnitWeight = 200,
+                                        ItemsInCase = 12,
+                                        CasePrice = 120.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    },
+                                    new Product
+                                    {
+                                        Name = "FERRERO ROCHER T24",
+                                        Code = "8001100012797",
+                                        UnitPrice = 20.00m,
+                                        UnitWeight = 300,
+                                        ItemsInCase = 24,
+                                        CasePrice = 480.00m,
+                                        ItemsInStock = 100,
+                                        CasesInStock = 10,
+                                        ImageUrl = "https://www.ferrero.com/wp-content/uploads/2020/03/logo-ferrero.png",
+                                        IsActive = true,
+                                        IsDeleted = false,
+                                        CreatedAt = DateTime.Now,
+                                        UpdatedAt = DateTime.Now
+                                    }
+                                }   
                             }
                         }
                     }

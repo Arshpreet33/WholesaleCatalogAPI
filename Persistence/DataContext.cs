@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Persistence
 {
@@ -10,10 +11,10 @@ namespace Persistence
         {
         }
 
-        public DbSet<Product> Products { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -24,6 +25,22 @@ namespace Persistence
                  .WithMany(c => c.Categories)
                  .HasForeignKey(m => m.ManufacturerId)
                  .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Product>()
+                .HasOne(c => c.Category)
+                .WithMany(p => p.Products)
+                .HasForeignKey(c => c.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Product>()
+                .Property(p => p.UnitPrice)
+                .HasColumnType("decimal(18, 2)")
+                .HasPrecision(18, 2);
+
+            builder.Entity<Product>()
+                .Property(p => p.CasePrice)
+                .HasColumnType("decimal(18, 2)")
+                .HasPrecision(18, 2);
         }
     }
 }

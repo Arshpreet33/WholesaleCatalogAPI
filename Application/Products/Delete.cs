@@ -4,7 +4,7 @@ using Domain;
 using MediatR;
 using Application.Core;
 
-namespace Application.Categories
+namespace Application.Products
 {
     public class Delete
     {
@@ -24,24 +24,16 @@ namespace Application.Categories
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var category = await _context.Categories.FindAsync(request.Id);
+                var product = await _context.Products.FindAsync(request.Id);
 
-                if (category == null) return null;
+                if (product == null) return null;
 
-                category.IsDeleted = true;
-                category.DeletedAt = DateTime.UtcNow;
-
-                var products = await _context.Products.Where(p => p.CategoryId == category.Id).ToListAsync();
-
-                foreach (var product in products)
-                {
-                    product.IsDeleted = true;
-                    product.DeletedAt = DateTime.UtcNow;
-                }
+                product.IsDeleted = true;
+                product.DeletedAt = DateTime.UtcNow;
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to delete Category");
+                if (!result) return Result<Unit>.Failure("Failed to delete Product");
 
                 return Result<Unit>.Success(Unit.Value);
             }
