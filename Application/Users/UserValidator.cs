@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Users
 {
-    public class UserValidator : AbstractValidator<UserDto>
+    public class UserValidator : AbstractValidator<AppUser>
     {
         public UserValidator()
         {

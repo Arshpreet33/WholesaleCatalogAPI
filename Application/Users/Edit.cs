@@ -11,7 +11,7 @@ namespace Application.Users
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public UserDto User { get; set; }
+            public AppUser User { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>

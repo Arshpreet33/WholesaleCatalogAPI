@@ -1,4 +1,5 @@
 using Application.Users;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -18,13 +19,13 @@ namespace API.Controllers
         }
 
         [HttpPost]   //api/users
-        public async Task<IActionResult> CreateUser(UserDto user)
+        public async Task<IActionResult> CreateUser(AppUser user)
         {
             return HandleResult(await Mediator.Send(new Create.Command { User = user }));
         }
 
         [HttpPut("{username}")]   //api/users/username
-        public async Task<IActionResult> EditUser(string username, UserDto user)
+        public async Task<IActionResult> EditUser(string username, AppUser user)
         {
             user.UserName = username;
             return HandleResult(await Mediator.Send(new Edit.Command { User = user }));
