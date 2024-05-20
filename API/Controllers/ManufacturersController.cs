@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ManufacturersController : AdminController
+    [Authorize(Roles = "Admin")]
+    public class ManufacturersController : BaseAPIController
     {
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]   //api/manufacturers
         public async Task<IActionResult> GetManufacturers([FromQuery] ManufacturerParams param)
         {

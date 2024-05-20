@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ProductsController : AdminController
+    [Authorize(Roles = "Admin")]
+    public class ProductsController : BaseAPIController
     {
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]   //api/products
         public async Task<IActionResult> GetProducts([FromQuery] ProductParams param)
         {

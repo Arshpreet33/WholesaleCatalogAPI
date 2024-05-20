@@ -26,32 +26,41 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            var user = await _userManager.FindByNameAsync(loginDto.UserName);
 
-            if (user == null) return Unauthorized("Invalid email");
+            if (user == null) return Unauthorized("UserName not found");
 
             var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
             if (!result) return Unauthorized();
+
+            // Check for the user role
+            var isInRole = await _userManager.IsInRoleAsync(user, loginDto.Role);
+
+            if (!isInRole) return Unauthorized("User is not in the expected role");
+
             return await CreateUserObjectAsync(user);
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+            var user = await _userManager.FindByNameAsync(User.FindFirstValue(ClaimTypes.Name));
 
             return await CreateUserObjectAsync(user);
         }
 
         private async Task<UserDto> CreateUserObjectAsync(AppUser user)
         {
+            var roles = await _userManager.GetRolesAsync(user);
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                Image = null,
+                ImageUrl = null,
                 Token = await _tokenService.CreateToken(user),
-                Username = user.UserName
+                Username = user.UserName,
+                Role = roles.FirstOrDefault()
             };
         }
     }

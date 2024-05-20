@@ -1,11 +1,14 @@
 using Application.Users;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class UsersController : AdminController
+    [Authorize(Roles = "Admin")]
+    public class UsersController : BaseAPIController
     {
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]   //api/users
         public async Task<IActionResult> GetUsers([FromQuery] UserParams param)
         {

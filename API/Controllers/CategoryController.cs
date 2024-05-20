@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class CategoryController : AdminController
+    [Authorize(Roles = "Admin")]
+    public class CategoryController : BaseAPIController
     {
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]   //api/category
         public async Task<IActionResult> GetCategories([FromQuery] CategoryParams param)
         {

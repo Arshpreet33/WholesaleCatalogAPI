@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ClientsController : AdminController
+    [Authorize(Roles = "Admin")]
+    public class ClientsController : BaseAPIController
     {
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]   //api/clients
         public async Task<IActionResult> GetClients([FromQuery] ClientParams param)
         {
