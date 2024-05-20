@@ -10,8 +10,6 @@ namespace Application.Users
             RuleFor(x => x.DisplayName).NotEmpty();
             RuleFor(x => x.UserName).NotEmpty();
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            RuleFor(x => x.Bio).NotEmpty();
-            RuleFor(x => x.IsActive).NotEmpty();
         }
     }
 }

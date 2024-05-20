@@ -5,6 +5,7 @@ using MediatR;
 using Application.Clients;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using API.Services;
 
 namespace API.Extensions
 {
@@ -40,6 +41,8 @@ namespace API.Extensions
             services.AddValidatorsFromAssemblyContaining<Create>();
 
             services.AddHttpContextAccessor();
+
+            services.AddScoped<TokenService>();
 
             return services;
         }

@@ -26,7 +26,7 @@ namespace Application.Users
 
             public async Task<Result<PagedList<UserDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var query = _context.Users
+                var query = _context.Users.Where(u => u.Role == "User") // filter by role 'User'
                   .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                   .AsQueryable();
 

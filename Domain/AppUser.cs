@@ -6,8 +6,8 @@ namespace Domain
     {
         public required string DisplayName { get; set; }
         public string? Bio { get; set; }
-        public required string Role { get; set; }
-        public required bool IsActive { get; set; }
+        public string? Role { get; set; }
+        public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }

@@ -27,6 +27,8 @@ namespace Application.Users
 
                 if (user == null) return null;
 
+                // Enable/Disable the user's account
+                user.LockoutEnd = user.IsActive ? null : DateTime.MaxValue;
                 user.IsActive = !user.IsActive;
                 user.UpdatedAt = DateTime.UtcNow;
 

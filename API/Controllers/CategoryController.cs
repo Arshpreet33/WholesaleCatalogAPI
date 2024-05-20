@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class CategoryController : BaseAPIController
+    public class CategoryController : AdminController
     {
         [HttpGet]   //api/category
         public async Task<IActionResult> GetCategories([FromQuery] CategoryParams param)

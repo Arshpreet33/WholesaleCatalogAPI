@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ProductsController : BaseAPIController
+    public class ProductsController : AdminController
     {
         [HttpGet]   //api/products
         public async Task<IActionResult> GetProducts([FromQuery] ProductParams param)

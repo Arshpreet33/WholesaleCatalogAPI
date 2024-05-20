@@ -33,7 +33,7 @@ namespace API.Controllers
             var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
             if (!result) return Unauthorized();
-            return CreateUserObject(user);
+            return await CreateUserObjectAsync(user);
         }
 
         [HttpGet]
@@ -41,16 +41,16 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
 
-            return CreateUserObject(user);
+            return await CreateUserObjectAsync(user);
         }
 
-        private UserDto CreateUserObject(AppUser user)
+        private async Task<UserDto> CreateUserObjectAsync(AppUser user)
         {
             return new UserDto
             {
                 DisplayName = user.DisplayName,
                 Image = null,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 Username = user.UserName
             };
         }

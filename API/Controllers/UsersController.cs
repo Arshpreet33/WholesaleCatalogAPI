@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class UsersController : BaseAPIController
+    public class UsersController : AdminController
     {
         [HttpGet]   //api/users
         public async Task<IActionResult> GetUsers([FromQuery] UserParams param)

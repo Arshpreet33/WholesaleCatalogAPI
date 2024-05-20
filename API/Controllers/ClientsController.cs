@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ClientsController : BaseAPIController
+    public class ClientsController : AdminController
     {
         [HttpGet]   //api/clients
         public async Task<IActionResult> GetClients([FromQuery] ClientParams param)

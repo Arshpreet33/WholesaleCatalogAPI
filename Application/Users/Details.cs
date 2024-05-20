@@ -27,9 +27,9 @@ namespace Application.Users
 
             public async Task<Result<UserDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users
+                var user = await _context.Users.Where(u => u.Role == "User")
                     .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(u => u.UserName == request.UserName);
+                    .FirstAsync(u => u.UserName == request.UserName);
 
                 return Result<UserDto>.Success(user);
             }
