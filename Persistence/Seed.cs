@@ -5,7 +5,7 @@ namespace Persistence
 {
     public class Seed
     {
-        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (!userManager.Users.Any())
             {
@@ -13,26 +13,48 @@ namespace Persistence
                 {
                     new AppUser
                     {
-                        DisplayName = "Bob",
-                        UserName = "bob",
-                        Email = "bob@test.com"
+                        DisplayName = "Tony",
+                        UserName = "admin",
+                        Email = "Tbadolato@sympatico.ca",
+                        Role = "Admin",
+                        IsActive = true
                     },
                     new AppUser
                     {
                         DisplayName = "Tom",
                         UserName = "tom",
-                        Email = "tom@test.com"
+                        Email = "tom@test.com",
+                        Role = "User",
+                        IsActive = true
                     },
                     new AppUser
                     {
                         DisplayName = "Jane",
                         UserName = "jane",
-                        Email = "jane@test.com"
+                        Email = "jane@test.com",
+                        Role = "User",
+                        IsActive = true
                     }
                 };
+
+                var roles = new List<string> { "Admin", "User" };
+
+                foreach (var role in roles)
+                {
+                    var roleExists = await roleManager.RoleExistsAsync(role);
+                    if (!roleExists)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+                }
+
                 foreach (var user in users)
                 {
-                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                    var result = await userManager.CreateAsync(user, user.UserName == "admin" ? "Tony@123" : "Pa$$w0rd");
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(user, user.Role);
+                    }
                 }
             }
 
@@ -428,7 +450,7 @@ namespace Persistence
                                         CreatedAt = DateTime.Now,
                                         UpdatedAt = DateTime.Now
                                     }
-                                }   
+                                }
                             }
                         }
                     }

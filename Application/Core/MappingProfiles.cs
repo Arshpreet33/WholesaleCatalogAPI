@@ -2,6 +2,7 @@
 using Application.Clients;
 using Application.Manufacturers;
 using Application.Products;
+using Application.Users;
 using AutoMapper;
 using Domain;
 
@@ -11,9 +12,6 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
-            CreateMap<Product, Product>();
-            CreateMap<Product, ProductDto>();
-
             CreateMap<Client, Client>();
             CreateMap<Client, ClientDto>();
 
@@ -22,6 +20,12 @@ namespace Application.Core
 
             CreateMap<Category, Category>();
             CreateMap<Category, CategoryDto>();
+
+            CreateMap<Product, Product>();
+            CreateMap<Product, ProductDto>();
+
+            CreateMap<AppUser, AppUser>();
+            CreateMap<AppUser, UserDto>();
         }
     }
 }
