@@ -59,7 +59,7 @@ namespace API.Controllers
                 DisplayName = user.DisplayName,
                 ImageUrl = null,
                 Token = await _tokenService.CreateToken(user),
-                Username = user.UserName,
+                UserName = user.UserName,
                 Role = roles.FirstOrDefault()
             };
         }
