@@ -30,6 +30,15 @@ namespace API.Controllers
 
             if (user == null) return Unauthorized("UserName not found");
 
+            // Check if the user is locked out
+            if (user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow)
+            {
+                return Unauthorized("This account is locked out");
+            }
+
+            // Extra check for the user's active status
+            if (!user.IsActive) return Unauthorized("Account is not active");
+
             var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
             if (!result) return Unauthorized();

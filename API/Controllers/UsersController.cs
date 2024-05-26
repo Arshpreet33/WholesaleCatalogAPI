@@ -8,7 +8,6 @@ namespace API.Controllers
     [Authorize(Roles = "Admin")]
     public class UsersController : BaseAPIController
     {
-        [Authorize(Roles = "Admin,User")]
         [HttpGet]   //api/users
         public async Task<IActionResult> GetUsers([FromQuery] UserParams param)
         {

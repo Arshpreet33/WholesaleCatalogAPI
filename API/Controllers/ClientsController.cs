@@ -2,10 +2,10 @@
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class ClientsController : BaseAPIController
     {
         [Authorize(Roles = "Admin,User")]
@@ -15,18 +15,21 @@ namespace API.Controllers
             return HandlePagedResult(await Mediator.Send(new List.Query { Params = param }));
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpGet("{id}")]   //api/clients/abcdefghijkl
         public async Task<IActionResult> GetClientById(Guid id)
         {
             return HandleResult(await Mediator.Send(new Details.Query() { Id = id }));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]   //api/clients
         public async Task<IActionResult> CreateClient(Client client)
         {
             return HandleResult(await Mediator.Send(new Create.Command { Client = client }));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]   //api/clients/abcdefghijkl
         public async Task<IActionResult> EditClient(Guid id, Client client)
         {
@@ -34,12 +37,14 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Edit.Command { Client = client }));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]   //api/clients/abcdefghijkl
         public async Task<IActionResult> DeleteClient(Guid id)
         {
             return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("toggle/{id}")]   //api/clients/toggle/abcdefghijkl
         public async Task<IActionResult> ToggleActiveStatus(Guid id)
         {

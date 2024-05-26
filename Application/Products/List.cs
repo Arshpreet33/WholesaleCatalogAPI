@@ -32,6 +32,11 @@ namespace Application.Products
 
                 query = query.Where(q => q.IsActive == request.Params.IsActive); // filter by active Products
 
+                if(request.Params.ManufacturerId != null) // filter by Manufacturer using ManufacturerId
+                {
+                    query = query.Where(q => q.Category.Manufacturer.Id == request.Params.ManufacturerId);
+                }
+
                 if (request.Params.CategoryId != null) // filter by Category using CategoryId
                 {
                     query = query.Where(q => q.Category.Id == request.Params.CategoryId);
