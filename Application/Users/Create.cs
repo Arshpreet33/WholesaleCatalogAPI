@@ -35,6 +35,14 @@ namespace Application.Users
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                // Check if a user with the same UserName already exists
+                var existingUser = await _userManager.FindByNameAsync(request.User.UserName);
+
+                if (existingUser != null)
+                {
+                    return Result<Unit>.Failure("UserName already exists");
+                }
+
                 var user = _mapper.Map<AppUser>(request.User);
                 user.Role = "User";
                 user.IsActive = true;

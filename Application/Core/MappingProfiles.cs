@@ -1,6 +1,7 @@
 ﻿using Application.Categories;
 using Application.Clients;
 using Application.Manufacturers;
+using Application.Orders;
 using Application.Products;
 using Application.Users;
 using AutoMapper;
@@ -25,7 +26,15 @@ namespace Application.Core
             CreateMap<Product, ProductDto>();
 
             CreateMap<AppUser, AppUser>();
-            CreateMap<AppUser, UserDto>();
+            CreateMap<AppUser, UserDto>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src=> src.UserName));
+
+            CreateMap<Order, Order>();
+            CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
+
+            CreateMap<OrderItem, OrderItem>();
+            CreateMap<OrderItem, OrderItemDto>();
         }
     }
 }

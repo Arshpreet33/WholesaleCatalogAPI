@@ -4,6 +4,7 @@ using Persistence;
 using Application.Core;
 using Domain;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Clients
 {
@@ -35,6 +36,16 @@ namespace Application.Clients
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                // Check if a client with the same ClientCode already exists
+                var existingClient = await _context.Clients
+                    .Where(c => c.Code == request.Client.Code)
+                    .FirstOrDefaultAsync();
+
+                if (existingClient != null)
+                {
+                    return Result<Unit>.Failure("Client Code is not unique");
+                }
+
                 var client = _mapper.Map<Client>(request.Client);
                 client.IsDeleted = false;
                 client.IsActive = true;
