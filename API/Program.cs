@@ -25,13 +25,20 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-if (app.Environment.IsDevelopment())
-{
+//COMMENTED BY NIKOLAI TO CHECK ENDPOINTS ON THE REMOTE SERVER.
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
-app.UseCors("CorsPolicy");
+//ADDED BY NIKOLAI TO ALLOW ACCESS FROM DIFFERENT DOMAINS TO THE API.
+//MAY NEED TO BE CONFIGURED IN A STRICTER WAY AFTER THE DEVELOPMENT PHASE.
+app.UseCors(policy =>
+    policy.SetIsOriginAllowed(_ => true)
+          .AllowAnyHeader()
+          .AllowAnyMethod()
+          .AllowCredentials());
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
