@@ -1,4 +1,5 @@
 ﻿using Application.Categories;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Products
 {
@@ -16,6 +17,8 @@ namespace Application.Products
         public int CasesInStock { get; set; }
         public string ImageUrl { get; set; }
         public bool IsActive { get; set; }
+        public Guid CategoryId { get; set; }
         public CategoryDto Category { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

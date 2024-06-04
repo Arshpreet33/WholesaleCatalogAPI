@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace Application.Products
 {
-    public class ProductValidator : AbstractValidator<Product>
+    public class ProductValidator : AbstractValidator<ProductDto>
     {
         public ProductValidator()
         {
-            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Name);
         }
     }
 }

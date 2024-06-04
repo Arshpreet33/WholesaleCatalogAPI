@@ -4,6 +4,7 @@ using Domain;
 using AutoMapper;
 using Application.Core;
 using FluentValidation;
+using Microsoft.Extensions.Hosting;
 
 namespace Application.Products
 {
@@ -11,7 +12,7 @@ namespace Application.Products
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Product Product { get; set; }
+            public ProductDto Product { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -26,11 +27,13 @@ namespace Application.Products
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
+            private readonly IHostEnvironment _env;
 
-            public Handler(DataContext context, IMapper mapper)
+            public Handler(DataContext context, IMapper mapper, IHostEnvironment env)
             {
-                _context = context;
                 _mapper = mapper;
+                _context = context;
+                _env = env;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
@@ -55,6 +58,22 @@ namespace Application.Products
                 var result = await _context.SaveChangesAsync() > 0;
 
                 if (!result) return Result<Unit>.Failure("Failed to update Product");
+
+                // Store the Image in the File System in root of the application
+                if (request.Product.Image != null)
+                {
+                    var fileName = product.Id.ToString() + Path.GetExtension(request.Product.Image.FileName);
+                    var directoryPath = Path.Combine(_env.ContentRootPath, "images", "products");
+                    Directory.CreateDirectory(directoryPath); // Create the directory if it doesn't exist
+                    var filePath = Path.Combine(directoryPath, fileName);
+
+                    using (var stream = System.IO.File.Create(filePath))
+                    {
+                        await request.Product.Image.CopyToAsync(stream);
+                    }
+
+                    product.ImageUrl = "/api/images/products/" + fileName;
+                }
 
                 return Result<Unit>.Success(Unit.Value);
             }

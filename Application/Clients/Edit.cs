@@ -42,9 +42,11 @@ namespace Application.Clients
                 bool isActive = client.IsActive;
                 bool isDeleted = client.IsDeleted;
                 var cretedAt = client.CreatedAt;
+                var code = client.Code;
 
                 _mapper.Map(request.Client, client);
 
+                client.Code = code;
                 client.IsActive = isActive;
                 client.IsDeleted = isDeleted;
                 client.CreatedAt = cretedAt;

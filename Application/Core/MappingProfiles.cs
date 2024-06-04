@@ -24,6 +24,7 @@ namespace Application.Core
 
             CreateMap<Product, Product>();
             CreateMap<Product, ProductDto>();
+            CreateMap<ProductDto, Product>();
 
             CreateMap<AppUser, AppUser>();
             CreateMap<AppUser, UserDto>()
