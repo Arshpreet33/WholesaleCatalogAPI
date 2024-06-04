@@ -13,6 +13,7 @@
         public string? City { get; set; }
         public string? Province { get; set; }
         public string? PostalCode { get; set; }
+        public ICollection<Order>? Orders { get; set; } = new List<Order>();
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; }
